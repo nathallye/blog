@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blog da Tabaresu</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all' %> 
+    <%= javascript_pack_tag 'application' %>
+  </head>
+
+  <body>
+   
+    <div class="p-4 mb-4 bg-dark text-center text-white"> <!-- 
+    mb-4 p-4 : Definição de margem, borda e preenchimento (margin, border e padding) com CSS simplificado;
+    bg-dark: Definição de cor do fundo do blog;
+    text-center: Centralizar conteúdo;
+    text-white: Definição da cor do texto, nesse caso é branco.
+    Disponivel em: https://getbootstrap.com/docs/4.0/utilities/colors/
+    -->
+      <%= link_to root_path, class: 'text-white' do %> <!-- 
+      link_to: Tag do Rails que cria um link para a rota inicial, quando clicar no titulo do blog. Boa prática de usabilidade;
+      text-white: precisa adicionar novamente, pois a cor de texto definida anteriormente não se aplica aos links (encontramos essa exlicação na documentação do Bootstrap)
+      -->
+        <h1 class="display-4">Blog da Tabaresu</h1> <!-- Disponivel em: https://getbootstrap.com/docs/5.1/content/typography/#headings -->
+      <% end %> <!--Fechamento do link-->
+    
+      <p class="lead">
+        Olá, aqui você encontrará artigos sobre programação, tecnologia e carrreira. <!--Subtitulo-->
+      </p>
+    </div>
+
+    <div class="container">
+      <%= yield %> <!--Conteúdo da aplicação-->
+    </div>
+
+    <footer class="mt-5 p-4 bg-dark text-center text-white"> <!--Rodapé-->
+    <!--
+    mt-5 p-4 : Definição de margem de topo (aplica somente para cima), borda e preenchimento(quando não especificamos nem "b" nem "t" aplica para os dois) 
+    (margin, border e padding) com CSS simplificado;
+    bg-dark: Definição de cor do fundo do blog;
+    text-center: Centralizar conteúdo;
+    text-white: Definição da cor do texto, nesse caso é branco.
+    Disponivel em: https://getbootstrap.com/docs/4.0/utilities/colors/
+    -->
+      Copyright © Nathallye Tabaresu <%= Date.current.year%>. <!--
+      Date.current.year - 
+      Utilizar a classe Date
+      .current que pega a data atual
+      .year para pegar o ano 
+      Assim não teremos que digitar o ano, e mudar o código todos os anos, podemos usar o Rails para gerar o ano dinâmicamente
+      -->
+    </footer>
+
+  </body>
+</html>
