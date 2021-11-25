@@ -1,5 +1,60 @@
-Alguma coisa aqui <!--Essa informação vai ficar se repetindo, por conta do nosso loop no arquio index.html.erb-->
+<!--Alguma coisa aqui -->
+<!--Essa informação vai ficar se repetindo, por conta do nosso loop no arquio index.html.erb-->
 
-<br>
+<div class="card bg-light mb-3"> <!--
+* Classe card na cor clara. Disponivel em: https://getbootstrap.com/docs/4.0/components/card/* mb-3 = margin border 3 para separar os cards-->
+  <div class="card-body"> <!--Espaço entre os elementos-->
+    <h4> <%= link_to post.title, post, class: "text-dark" %> </h4> <!--
+    * post = lugar onde o usuário será redirecionado (próprio post)
+    tradicionalmente essa rota é post_path(post) 
+    mas como o nome da rota é examente o mesmo nome do objeto (parâmetro)
+    podemos simplesmente passar apenas o objeto (post) que o rails entende esssa rota
+    * H4 pois é um titulo
+    * class: "text-dark" = cor do texto preta
+    -->
+    <div class="text-muted mb-2"> <!-- text-muted = Texto fica cinzinha -->
+      <em> Por <%= post.author %> (<%= I18n.l(post.created_at, format: :long) %>) </em> 
+      <!-- 
+      * post.author = mostrar dinamicamente o nome do autor do post
+       * I18n.l = para mudar a formatação de data para a padrão do brasil
+      o que vem depois do I18n.l é o parâmetro, ex.: (post.created_at) - que é a data e hora de criação do post
+      * post.created_at = data de criação do post (mostra dinamicamente também)
+      * format: = passando o parâmetro de formato
+      * :long = em seguida passamos um simbolo long, que nada mais é que o formato longo que mostra o ano
+      -->
+      <!--Tag <em></em> deixa tudo em italico-->
+    </div>
 
-<%= post.title %> <!--Mostrar o titulo do post-->
+    <p> <%= post.body.truncate(200) %> </p> <!--post.body = Exibir conteúdo do post
+    * .truncate(200) = limita o numero de caracteres mostrado em tela - (200) é número de carcteres-->
+
+    <p class="text-muted" > <%= pluralize(post.comments.count, "Comentário") %> </p> <!-- 
+    * text-muted = Texto fica cinzinha 
+    * pluralize() = Esse método serve para pluralizar uma string quando for necessário, nesse caso quando o número de comentário for igual a 0, 2 ou mais...
+    depois do método pluralize () passamos o número de registros a ser exibido nesse caso é post.comments.count
+    e em seguida a string que vai ser pluralizada ou não (configuração feita no arquivo inflections.rb)
+    * post.comments.count = Contar o número de comentários associados a esse post-->
+
+    <%= link_to "Ler Artigo", post, class: "btn btn-dark" %> <!--
+    * link_to "Ler Artigo" = Botão linkado para ler atigo
+    * post = lugar onde o usuário será redirecionado (próprio post)
+    * class: "btn btn-dark" = cor do botão preta
+    -->
+
+    <%= link_to "Editar", edit_post_path(post), class: "btn btn-secondary" %> <!--
+    * link_to "Editar" = Botão linkado para editar atigo
+    * edit_post = parâmetro de rota para edição usado depois de buscar na lista de rotas disponiveis para nossa aplicação no terminal (rails routes) 
+    em seguida passa como parâmetro o post
+    * class: "btn btn-secondary" = cor do botão cinza
+    -->
+    <%= link_to "Apagar", post, method: :delete, class: "btn btn-danger", 
+      data: {confirm: "Você tem certeza que deseja apagar esse post?"} %> <!--
+    * link_to "Apagar" = Botão linkado para apagar atigo
+    * post = Pois a rota dele é a mesma do botão "ler atigo", porém o método é "deletar"
+    * method: :delete = Dessa forma o rails entende que essa rota é para apagar
+    * class: "btn btn-danger" = cor do botão vermelha
+    * data: {confirm: "string"} = Método do Rails para confirmar se deseja apagar mesmo
+    -->
+
+  </div>  
+</div>
