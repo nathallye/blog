@@ -1,7 +1,6 @@
   <div class="shadow p-5 bg-light rounded"> 
     <div class="text-center mb-5"> <!--text-center  = centralizar o texto da div-->
       <h1> <%= @post.title %> </h1>
-
       <p class="text-muted"> <!-- class text-muted = Texto fica cinzinha-->
         <strong> Por <%= @post.author %> </strong> <br> <!--
         * Tag strong para ficar em negrito; 
@@ -25,6 +24,49 @@
        * ("\n", "<br>") = dentro vamos passar os parâmetros, o primeiro o que queremos substituir e em seguida para que elemento vamos substituir 
        * .html_safe = informar que o html é seguro para que ele não somente renderize a tag <br> e sim faça a quebra de linha 
        -->
+    </div>
+  </div>
+
+  <div class="m-5">
+    <div class="text-center">
+      <h4> 
+        <%= pluralize(@post.comments.count, "Comentário") %> <!--
+      * tag <h4> pois é um titulo
+      * pluralize() = Esse método serve para pluralizar uma string quando for necessário, nesse caso quando o número de comentário for igual a 0, 2 ou mais...
+      depois do método pluralize () passamos o número de registros a ser exibido nesse caso é @post.comments.count
+      e em seguida a string que vai ser pluralizada ou não (configuração feita no arquivo inflections.rb)
+      * @post.comments.count = Contar o número de comentários associados a esse post
+      * Aqui fica @post, pois é uma variável de instância
+      -->
+        <% if (@post.comments.count == 0) %> <!--Se o total de commentários for igual a zero-->
+          <span class="badge bg-success">Seja o primeiro a comentar!</span> <!--badge bg-success = Criação de Tag-->
+        <% end %>
+      </h4> 
+    </div>
+
+    <div>
+      <%= form_with model: @comment, local: true do |form| %> <!-- 
+       * form_with = Help do Rails para criação de formulário 
+       model: @comment = passamos o objeto vazio do controler para armazenar
+
+       * local: true do |form| = Não utilizar ajax de acordo com o padrão do Rails
+       -->
+        <%= form.hidden_field :post_id, value: @post.id %> <!--Campo escondido do id do post, para associar lá no controller dos comentários a que post determinado comentário pertence -->
+
+        <div class="form-group mb-2"> 
+          <%= form.label :author %>
+          <%= form.text_field :author, class: "form-control" %>
+        </div>
+
+        <div class="form-group mb-2"> 
+          <%= form.label :body %>
+          <%= form.text_area :body, class: "form-control", rows: 2 %> <!--Flager rows(lista) = marcador-->
+        </div>
+
+        <%= form.submit 'Enviar', class: "btn btn-dark", 
+          data: { disable_with: "Enviando..."} %> <!--
+        Flager(marcador) data { disable_with: "Enviando..."} = toda vez que submeter a atualização ou o novo post, vai desabilitar o botão e vai aparecer "enviando" -->
+      <% end %>
     </div>
   </div>
 

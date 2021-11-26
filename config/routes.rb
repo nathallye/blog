@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   resources :posts
   # Unico, pois utilizamos o scaffold para criar as rotas
   # depois será necessário criar uma para os comentários uma rota só e criaremos manualmente
+
+  resources :comments, only: %i[create] #rota de comentários, limitada a ação(action) de criação(create) - para não termos todas as rotas disponiveis, por questões ded segurança
 end

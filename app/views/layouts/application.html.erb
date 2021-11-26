@@ -32,6 +32,20 @@
     </div>
 
     <div class="container">
+      <% flash.each do |type, message| %> <!-- Loop para exibir o array de mensagens(avisos) -->
+      <div class="alert alert-<%= type == "alert" ? "darger" : "success" %> alert-dismissible fade show" role="alert"> <!--
+      A cor vai ser alterada de acordo com o tipo de mensagem: 
+      * darger para o tipo alert 
+      * sucess para outros (notice)
+      -->
+        <%= message %> <!--Mensagem a ser exibida dinâmicamente-->
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> <!--Botão de fechar (close)-->
+      </div>
+      <% end %>
+
       <%= yield %> <!--Conteúdo da aplicação-->
     </div>
 
