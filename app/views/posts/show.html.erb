@@ -1,19 +1,35 @@
-<p id="notice"><%= notice %></p>
+  <div class="shadow p-5 bg-light rounded"> 
+    <div class="text-center mb-5"> <!--text-center  = centralizar o texto da div-->
+      <h1> <%= @post.title %> </h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+      <p class="text-muted"> <!-- class text-muted = Texto fica cinzinha-->
+        <strong> Por <%= @post.author %> </strong> <br> <!--
+        * Tag strong para ficar em negrito; 
+        * post.author = mostrar dinamicamente o nome do autor do post
+        * Tag br para fazer uma quebra de linha
+        -->
+        <%= I18n.l(@post.created_at, format: :long) %>
+        <!-- 
+        * I18n.l = para mudar a formatação de data para a padrão do brasil
+        o que vem depois do I18n.l é o parâmetro, ex.: @post.created_at - que é a data e hora de criação do post
+        * @post.created_at = data de criação do post (mostra dinamicamente também)
+        * format: = passando o parâmetro de formato
+        * :long = em seguida passamos um simbolo long, que nada mais é que o formato longo que mostra o ano
+        -->
+      </p>
+    </div>
 
-<p>
-  <strong>Author:</strong>
-  <%= @post.author %>
-</p>
+    <div class="px-5"> <!--px aplica o espaço só na horizontal; py aplica o espaço só na vertical-->
+       <%= @post.body.gsub("\n", "<br>").html_safe %> <!--
+       * .gsub() = método para exibir a quebra de linha, pois está salvo no banco de dados como "\n" e precisa ser salvo com <br> 
+       * ("\n", "<br>") = dentro vamos passar os parâmetros, o primeiro o que queremos substituir e em seguida para que elemento vamos substituir 
+       * .html_safe = informar que o html é seguro para que ele não somente renderize a tag <br> e sim faça a quebra de linha 
+       -->
+    </div>
+  </div>
 
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
+  
+  
+ 
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+

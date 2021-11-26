@@ -1,2 +1,16 @@
 pt-BR:
+  activerecord: 
+    models:
+      post: "Post"
+      comment: "Comentário"
+    
+    attributes:
+      post: 
+        title: "Título"
+        author: "Autor"
+        body: "Conteúdo"
+      comment:
+        title: "Título"
+        author: "Autor"
+        body: "Conteúdo"
 

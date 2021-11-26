@@ -1,32 +1,25 @@
 <%= form_with(model: post) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+  <div class="form-group mb-2"> <!--form-group = Padrão bootstrap. Disponível em: https://getbootstrap.com/docs/4.0/components/forms/-->
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control" %> <!--"form-control" = Padrão bootstrap de formatação de formulários. Disponível em: https://getbootstrap.com/docs/4.0/components/forms/-->
   </div>
 
-  <div class="field">
+  <div class="form-group mb-2"> 
     <%= form.label :author %>
-    <%= form.text_field :author %>
+    <%= form.text_field :author, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group mb-2"> 
     <%= form.label :body %>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, class: "form-control", rows: 5 %> <!--Flager rows(lista) = marcador-->
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.submit class: "btn btn-dark", data: { disable_with: "Enviando..."} %>
+  <!--Flager(marcador) data { disable_with: "Enviando..."} = toda vez que submeter a atualização ou o novo post, vai desabilitar o botão e vai aparecer "enviando" -->
 <% end %>
+
+
+<!--
+OBS.: 
+Toda a traduçaõ dos nomes dos itens dos formulários (tile, auhor, body...) foi feita no arquivo config/locales/pt-BR.yml
+-->
