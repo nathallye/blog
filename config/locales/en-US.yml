@@ -1,7 +1,7 @@
 pt-BR:
   posts: 
     create: 
-      notice: "Seu post foi criado com sucesso!"
+      notice: "Post was successfully created.!"
   activerecord: 
     models:
       post: "Post"
