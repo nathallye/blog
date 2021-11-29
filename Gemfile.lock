@@ -82,6 +82,8 @@ GEM
     crass (1.0.6)
     erubi (1.10.0)
     ffi (1.15.4)
+    friendly_id (5.4.2)
+      activerecord (>= 4.0.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
     i18n (1.8.11)
@@ -106,6 +108,9 @@ GEM
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     pg (1.2.3)
+    pg_search (2.3.5)
+      activerecord (>= 5.2)
+      activesupport (>= 5.2)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -211,9 +216,11 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  friendly_id
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
+  pg_search
   pry
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)

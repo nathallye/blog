@@ -3,12 +3,19 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+
 import Rails from "@rails/ujs";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
-import "bootstrap/dist/js/bootstrap.bundle";
+import "jquery/dist/jquery"
+import "bootstrap/dist/js/bootstrap.bundle"
+import "popper.js/dist/popper"
 
 import "../src/application.css";
 
 Rails.start();
 ActiveStorage.start();
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});

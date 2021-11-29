@@ -1,0 +1,38 @@
+<h2 class="text-muted">  <!-- class text-muted = Texto fica cinzinha-->
+  <% if @posts.any? %>  <!--Se encontrar algum post/resultados-->
+    <%= pluralize(@posts.count, "resultado encontrado") %>
+  <% else %>
+    Nenhum resultado encontrado.
+  <% end %>
+</h2>
+
+<!--Exibir os resultados dos posts: Vai fazer um loop dos posts e renderizar cada um deles-->
+<% @posts.each do |post| %> <!--Loop dos posts-->
+  <!--Conteúdo-->
+  <!--Vamos utilizar um recurso do Rails que são as paths. 
+  Ou seja, o conteúdo que iria aqui vamos colocar em outro arquivo, pois assim podemos usar esse mesmo conteúdo para exibir em outras partes da aplicação-->
+  
+  <!--MUDAR ISSO: --> 
+  <!--
+  render 'post', post: post 
+  * render = Renderizar a paths (não esquecer do sinal de igual)
+  * 'post' = nome da path
+  * post: post = passa como parâmetro de post o post
+  -->
+
+  <!--PARA ISSO: -->
+  <%= render(post) %> 
+  <!-- render(post) = podemos apenas passar uma variavél como parâmetro (virando um metódo), para não ficar muito "feio". -->
+<% end %>
+
+<!-- <% %> Tag do Rails para add um código dinâmico. -->
+
+<!-- 
+EXPLICAÇÃO DO QUE ACONTECE AQUI:
+* @posts.eatch do |post| = Quando a gente passa um objeto que tá vindo do banco, no caso, os @posts é uma coleção(um  array) de elementos do banco.
+* render(post) = Quando passamos para o render (esse método) ele já vai automáticamente procurar no projeto um arquivo no diretório: app/views/posts/_posts.html.erb (automáticamente converte para essa url dinâmicamente - para isso será necessário criar esse arquivo nesse diretório. ). 
+-->
+
+<div>
+
+</div>

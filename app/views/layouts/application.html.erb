@@ -33,7 +33,7 @@
 
     <div class="container">
       <% flash.each do |type, message| %> <!-- Loop para exibir o array de mensagens(avisos) -->
-      <div class="alert alert-<%= type == "alert" ? "darger" : "success" %> alert-dismissible fade show" role="alert"> <!--
+      <div class="alert alert-<%= type == "alert" ? "danger" : "success" %> alert-dismissible fade show" role="alert"> <!--
       A cor vai ser alterada de acordo com o tipo de mensagem: 
       * darger para o tipo alert 
       * sucess para outros (notice)
@@ -45,6 +45,23 @@
         </button> <!--Botão de fechar (close)-->
       </div>
       <% end %>
+
+      <div class="row"> <!--Tabela para a busca-->
+        <div class="col-4 offset-8"> <!--offset-8 = Ignorar as 8 primeiras colunas e pegar as 4 ultimas-->
+          <div class="search">
+            <%= form_with url: search_posts_path, method: :get, local: true, class: "form-inline" do |form| %>
+              <div class="form-group mx-3 mb-3">
+                <%= form.search_field :q, class: "form-control", required: true, placeholder: "Busca", value: params[:q] %> <!-- *required: true = Não permite buscar com o campo vazio
+                * value: params[:q] = para salvar essa busca-->    
+              </div>
+
+              <%= form.submit "Buscar", class: "btn btn-dark mb-3",  
+                data: { disable_with: "Buscando..." } %> <!--
+                Flager(marcador) data { disable_with: "Buscando..."} = toda vez que submeter a atualização ou o novo post, vai desabilitar o botão e vai aparecer "buscando" -->
+            <% end %>
+          </div>
+        </div>
+      </div>
 
       <%= yield %> <!--Conteúdo da aplicação-->
     </div>

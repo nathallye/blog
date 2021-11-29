@@ -44,7 +44,7 @@
       </h4> 
     </div>
 
-    <div>
+    <div class="shadow-sm m-3 p-3 bg-light rounded"> <!--shadow-sm = Sombra com m-3; bg-light = fundo cinza; rounded = arredondado-->
       <%= form_with model: @comment, local: true do |form| %> <!-- 
        * form_with = Help do Rails para criação de formulário 
        model: @comment = passamos o objeto vazio do controler para armazenar
@@ -55,12 +55,12 @@
 
         <div class="form-group mb-2"> 
           <%= form.label :author %>
-          <%= form.text_field :author, class: "form-control" %>
+          <%= form.text_field :author, class: "form-control", required: true %>
         </div>
 
         <div class="form-group mb-2"> 
           <%= form.label :body %>
-          <%= form.text_area :body, class: "form-control", rows: 2 %> <!--Flager rows(lista) = marcador-->
+          <%= form.text_area :body, class: "form-control", rows: 2, required: true %> <!--Flager rows(lista) = marcador-->
         </div>
 
         <%= form.submit 'Enviar', class: "btn btn-dark", 
@@ -68,6 +68,42 @@
         Flager(marcador) data { disable_with: "Enviando..."} = toda vez que submeter a atualização ou o novo post, vai desabilitar o botão e vai aparecer "enviando" -->
       <% end %>
     </div>
+
+    <% @comments.each do |comment| %> <!--Exibir um em loop o array de comentários definidos lá no arquivo de post_controller:
+    def show
+      @comments = @post.comments #ler todos comentários que conseguimos acessar em @post.comments
+    end
+    essa variável @post foi definida pelo scafald-->
+      <div class="shadow-sm m-3 p-3 bg-light rounded"> <!--shadow-sm = Sombra com m-3; bg-light = fundo cinza; rounded = arredondado-->
+        <div class="row"> <!--row = fileira-->
+          <div class="col"> <!--col = coluna-->
+            <strong> <%= comment.author %> </strong> <!--Nome do autor do comentário-->
+          </div>
+
+          <div class="col text-right"> <!--col = coluna; text-right = texto alinhado para direita-->
+            <em data-toggle="tooltip" data-placement="top" title="<%= I18n.l(comment.created_at, format: :long) %>"> <!--
+            * tooltips para exibir a data e hora exata de criação quando o usuário passar o cursor sobre o tempo relativo. Disponivel em: https://getbootstrap.com/docs/4.0/components/tooltips/
+            * Não esquecer de ativar via javascript no arquivo application.js
+            -->
+              <%= time_ago_in_words comment.created_at %> atrás 
+            </em> <!--
+            * comment.created_at = Data de criação do comentário
+            * time_ago_in_words = Formata em tempo relativo (ex.:17min atrás)
+            -->
+          </div>
+        
+        </div>
+
+        <hr> <!--Quebra de linha horizontal-->
+        <%= sanitize(comment.body.gsub("\n", "<br>")).html_safe %> <!--
+        * sanitize = Remove qualquer script malicioso
+        * comment.body = Exibir o texto dos comentários
+        * .gsub() = método para exibir a quebra de linha, pois está salvo no banco de dados como "\n" e precisa ser salvo com <br> 
+        * ("\n", "<br>") = dentro vamos passar os parâmetros, o primeiro o que queremos substituir e em seguida para que elemento vamos substituir 
+        * .html_safe = informar que o html é seguro para que ele não somente renderize a tag <br> e sim faça a quebra de linha 
+       -->
+      </div>
+    <% end %>
   </div>
 
   

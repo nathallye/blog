@@ -3,11 +3,17 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.order(created_at: :desc) # order(created_at: :desc) = ordenar os posts de acordo com a ordem decrescente de criação
+  end
+
+  def search
+    @posts = Post.search(search_params[:q]) #esse método retorna uma coleção de posts, baseado no que o usuário buscou (search = esse nome da busca foi definido em model post.rb - ele virou um método da class post)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
+    @comments = @post.comments.order(created_at: :desc) #ler todos comentários que conseguimos acessar em @post.comments, pois os comentários pertecem a um post(id)
+    # order(created_at: :desc) = ordenar os comentários de acordo com a ordem decrescente de criação
     @comment = Comment.new
   end
 
@@ -25,10 +31,15 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     respond_to do |format|
-      if @post.save
+      if @post.save #se salvar os posts
         format.html { redirect_to @post, notice: t(".notice") }
         format.json { render :show, status: :created, location: @post }
-      else
+      else #se não salvar
+        flash.now[:alert] = @post.errors.full_messages.to_sentence #flash.now[:alert] = Exibir uma mensagem de alerta (é necessário usar .now quando em seguida temos um render e não um redirect_to); 
+        # @post = Instancia do banco de dados; 
+        # .errors = Rach com varias informações sobre o erro; 
+        # .full_messages = Retorna um array com todos os erros que ele encontrou; 
+        # .to_sentence = Transforma tudo em uma frase.
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
@@ -60,11 +71,15 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :author, :body)
+    end
+
+    def search_params
+      params.permit(:q)
     end
 end

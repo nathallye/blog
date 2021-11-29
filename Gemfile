@@ -27,6 +27,9 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'rails-i18n' #tradução
 gem 'pry' #depurar
+gem 'friendly_id' #"url amigavél"
+gem 'pg_search' #busca
+
 
 
 group :development, :test do
