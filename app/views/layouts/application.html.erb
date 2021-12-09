@@ -33,7 +33,7 @@
 
     <div class="container">
       <% flash.each do |type, message| %> <!-- Loop para exibir o array de mensagens(avisos) -->
-      <div class="alert alert-<%= type == "alert" ? "danger" : "success" %> alert-dismissible fade show" role="alert"> <!--
+      <div class="alert alert-<%= type == "alert" ? "dager" : "success" %> alert-dismissible fade show" role="alert"> <!--
       A cor vai ser alterada de acordo com o tipo de mensagem: 
       * darger para o tipo alert 
       * sucess para outros (notice)
